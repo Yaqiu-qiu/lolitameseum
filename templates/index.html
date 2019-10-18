@@ -1,10 +1,16 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Upload Successfully</title>
+    </head>
+    <body>
+        <p>skirts list</p>
+     {% for skirt in skirts %}
+    <p>{{skirt.id}}   :   {{skirt.name}}</p> <img src="{{MEDIA_URL}}{{skirt.coverimg}}">
+    <br>
+    {% endfor %}
 
-</body>
+    </body>
 </html>

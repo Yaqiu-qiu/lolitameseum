@@ -5,13 +5,15 @@ from django.contrib.auth.hashers import make_password,check_password
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib import auth
+from sign.models import Skirt     #插入skirt表
+from django.shortcuts import HttpResponseRedirect,Http404,HttpResponse,render_to_response
 
 
 
 # Create your views here.
 
-def index(request):
-    return render(request,'index.html')
+#def index(request):
+   #   return render(request,'index.html')
 def loginpage(request):
     return render(request,'login.html')
 def regist(request):
@@ -31,8 +33,8 @@ def signup(request):
             else:
                 user=User.objects.create_user(username=username,password=password)
                 return render(request,'index.html')
-    else:
-        return HttpResponse('账号密码格式不正确')
+        else:
+            return HttpResponse('账号密码格式不正确')
 
 def login(request):
     if request.method=='POST':
@@ -47,3 +49,12 @@ def login(request):
                 return HttpResponse('账号或密码错误！')
         else:
             return HttpResponse('账号或密码不符合规则')
+
+
+def index(request):
+
+    skirts=Skirt.objects.all() #将数据库中取出skirt表中的所有数据给skirts
+   #return render(request,'table.html',{'form':table_form})
+
+    return render_to_response("index.html",locals()) #必须用这个return
+
